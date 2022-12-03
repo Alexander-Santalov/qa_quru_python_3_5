@@ -3,7 +3,7 @@ from selene import have
 
 
 def test_registration(app):
-    app.open("/automation-practice-form").driver.maximize_window()
+    app.open("/automation-practice-form")
     app.element("#firstName").set_value("Alexander")
     app.element("#lastName").set_value("Santalov")
     app.element("#userEmail").set_value("asantalov@bolid.ru")
