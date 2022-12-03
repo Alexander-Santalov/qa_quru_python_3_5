@@ -1,5 +1,7 @@
 import os
 from selene import have
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.action_chains import ActionChains
 
 
 def test_registration(app):
@@ -7,10 +9,13 @@ def test_registration(app):
     app.element("#firstName").set_value("Alexander")
     app.element("#lastName").set_value("Santalov")
     app.element("#userEmail").set_value("asantalov@bolid.ru")
-    app.element("#userNumber").set_value("89167776655")
+    app.element("#userNumber").set_value("8916777665")
     app.element("[for='gender-radio-1']").click()
-    app.element("#dateOfBirthInput").execute_script("element.value ='03 Aug 1986'")
-    app.element("#subjectsInput").set_value("physical education")
+    app.element("#dateOfBirthInput").click()
+    ActionChains(app.driver).key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).perform()
+    app.element("#dateOfBirthInput").send_keys("03 Aug 1986")
+    ActionChains(app.driver).key_down(Keys.ESCAPE).perform()
+    app.element("#subjectsInput").set_value("Chemistry").press_enter()
     app.element("[for='hobbies-checkbox-1']").click()
     app.element("[for='hobbies-checkbox-3']").click()
     app.element("#uploadPicture").set_value(
@@ -21,6 +26,6 @@ def test_registration(app):
     app.element("#submit").execute_script("element.click()")
     app.all("tbody tr").should(have.size(10))
     app.all("tbody tr td:last-child").should(have.exact_texts(
-        "Alexander Santalov", "asantalov@bolid.ru", "Male", "8916777665", "03 December,2022", "physical education",
-        "Sports, Music", "Toolsqa.jpg", "Zelenograd", "Haryana Panipat"))
+        'Alexander Santalov', 'asantalov@bolid.ru', 'Male', '8916777665', '03 August,1986', 'Chemistry',
+        'Sports, Music', 'Toolsqa.jpg', 'Zelenograd', 'Haryana Panipat'))
     app.element("#closeLargeModal").click()
