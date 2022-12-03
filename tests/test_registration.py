@@ -10,7 +10,7 @@ def test_registration(app):
     app.element("#userNumber").set_value("89167776655")
     app.element("[for='gender-radio-1']").click()
     app.element("#dateOfBirthInput").execute_script("element.value ='03 Aug 1986'")
-    app.element("#subjectsInput").set_value("home_work")
+    app.element("#subjectsInput").set_value("physical education")
     app.element("[for='hobbies-checkbox-1']").click()
     app.element("[for='hobbies-checkbox-3']").click()
     app.element("#uploadPicture").set_value(
@@ -21,6 +21,6 @@ def test_registration(app):
     app.element("#submit").execute_script("element.click()")
     app.all("tbody tr").should(have.size(10))
     app.all("tbody tr td:last-child").should(have.exact_texts(
-        "Alexander Santalov", "asantalov@bolid.ru", "Male", "8916777665", "03 December,2022", "home_work",
+        "Alexander Santalov", "asantalov@bolid.ru", "Male", "8916777665", "03 December,2022", "physical education",
         "Sports, Music", "Toolsqa.jpg", "Zelenograd", "Haryana Panipat"))
     app.element("#closeLargeModal").click()
